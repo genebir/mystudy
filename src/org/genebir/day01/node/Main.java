@@ -1,4 +1,4 @@
-package org.genebir.day01.linked_list;
+package org.genebir.day01.node;
 
 public class Main {
     // 생성만 LinkedList를 테스트해보자

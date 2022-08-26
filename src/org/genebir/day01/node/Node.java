@@ -1,22 +1,26 @@
-package org.genebir.day01.linked_list;
+package org.genebir.day01.node;
 
 import java.util.Objects;
 
 // 단방향 Linked List를 자바로 구현해보자
+// header가 따로 없어 반쪽짜리임
 // Queue
 public class Node {
 
     // 리스트의 노드 내 삽입될 데이터
-    Object data;
+    protected Object data;
     // 다음 노드에 대한 참조
-    Node next = null;
+    protected Node next = null;
     // 생성자를 통해 데이터 입력
     public Node(Object data) {
         this.data = data;
     }
+    public Node() {
+        this.data = null;
+    }
 
     // 추가하는 append 메소드 구현
-    void append(Object data) {
+    protected void append(Object data) {
         // 데이터의 가장 끝에 넣어줄 수 있게
         Node end = new Node(data);
         Node n = this;
@@ -29,7 +33,7 @@ public class Node {
     }
 
     // 삭제하는 delete 메소드 구현
-    void delete(Object data) {
+    protected void delete(Object data) {
         Node n = this;
         // 끝까지 반복하기 위한 Loop
         while(n.next != null) {
@@ -45,7 +49,7 @@ public class Node {
     }
 
     // 출력하는 retrieve
-    void retrieve() {
+    protected void retrieve() {
         Node n = this;
         while(n.next != null) {
             // 끝까지 반복하여 출력
