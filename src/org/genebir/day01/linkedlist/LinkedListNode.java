@@ -1,6 +1,6 @@
 package org.genebir.day01.linkedlist;
 
-// LinkedList 구현
+// 단방향 LinkedList 구현
 public class LinkedListNode<T> {
     Node header;
 
@@ -12,7 +12,7 @@ public class LinkedListNode<T> {
     public LinkedListNode() {
         header = new Node();
     }
-
+    // 추가하는 append 메소드 구현
     protected void append(T data) {
         Node end = new Node();
         end.data = data;
@@ -45,4 +45,19 @@ public class LinkedListNode<T> {
         System.out.println(n.data);
     }
 
+    // 중복값 제거하는 removeDups
+    void removeDups() {
+        Node n = header;
+        while(n != null && n.next != null) {
+            Node r = n;
+            while(r.next != null) {
+                if(n.data == r.next.data) {
+                    r.next = r.next.next;
+                } else {
+                    r = r.next;
+                }
+            }
+            n = n.next;
+        }
+    }
 }
