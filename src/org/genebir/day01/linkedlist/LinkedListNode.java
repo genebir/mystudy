@@ -60,4 +60,19 @@ public class LinkedListNode<T> {
             n = n.next;
         }
     }
+
+    // 뒤에서 부터 검색하는 KthToLast
+    Node KthToLast(Node first, int k) {
+        Node n = first;
+        int total = 1;
+        while(n.next != null) {
+            n = n.next;
+            total++;
+        }
+        n = first;
+        for(int i=0; i<total-k+1; i++) {
+            n = n.next;
+        }
+        return n;
+    }
 }

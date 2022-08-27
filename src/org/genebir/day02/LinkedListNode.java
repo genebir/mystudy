@@ -16,8 +16,22 @@ public class LinkedListNode<T> {
         public String toString() {
             return "[" + idx + ", " + data + "]";
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node = (Node) o;
+            return idx == node.idx && Objects.equals(data, node.data) && Objects.equals(next, node.next);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(idx, data, next);
+        }
     }
 
+    // 추가하기!
     int append(T data) {
         Node end = new Node();
         Node n = header;
@@ -37,7 +51,7 @@ public class LinkedListNode<T> {
         }
         return success;
     }
-
+    // index로 삭제
     int delete(int index) {
         Node n = header;
         int success;
@@ -46,11 +60,9 @@ public class LinkedListNode<T> {
                 if(n.next.idx == index) {
                     n.next = n.next.next;
                     while(n.next != null) {
-                        System.out.println("deleting....");
-                        n.idx--;
                         n = n.next;
+                        n.idx--;
                     }
-                    n.idx--;
                     this.index--;
 
                     break;
@@ -62,7 +74,30 @@ public class LinkedListNode<T> {
             success = 0;
         }
         return 0;
+    }
+    // delete오버로딩해서 data로 삭제
+    int delete(T data) {
+        Node n = header;
+        int success;
+        try {
+            while (n.next != null) {
+                if(n.next.data.equals(data)) {
+                    n.next = n.next.next;
+                    while(n.next != null) {
+                        n = n.next;
+                        n.idx--;
+                    }
+                    this.index--;
 
+                    break;
+                }
+                n = n.next;
+            }
+            success = 1;
+        } catch (Exception e) {
+            success = 0;
+        }
+        return success;
     }
 
     void retrieve() {
@@ -74,7 +109,7 @@ public class LinkedListNode<T> {
 
             n = n.next;
         }
-        System.out.println(n.data + "]");
+        System.out.println("[" + n.idx + ", " + n.data + "]");
     }
 
 
