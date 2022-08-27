@@ -1,20 +1,21 @@
-package org.genebir.day02;
+package org.genebir.day02.linkedlist;
 
 import java.util.Objects;
 
 // LinkedList 복습삼아 구현해보기
 public class LinkedListNode<T> {
-    Node header = new Node();
-    int index = 0;
+    Node header;
+    public LinkedListNode() {
+        header = new Node();
+    }
 
     class Node {
-        int idx;
         T data;
         Node next;
 
         @Override
         public String toString() {
-            return "[" + idx + ", " + data + "]";
+            return "[" + data + "]";
         }
 
         @Override
@@ -22,12 +23,12 @@ public class LinkedListNode<T> {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Node node = (Node) o;
-            return idx == node.idx && Objects.equals(data, node.data) && Objects.equals(next, node.next);
+            return Objects.equals(data, node.data) && Objects.equals(next, node.next);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(idx, data, next);
+            return Objects.hash(data, next);
         }
     }
 
@@ -38,7 +39,6 @@ public class LinkedListNode<T> {
         int success = 0;
         try {
             end.data = data;
-            end.idx = index++;
             System.out.println(end + " append succeed");
             while(n.next != null) {
                 n = n.next;
@@ -55,14 +55,16 @@ public class LinkedListNode<T> {
     // index로 검색하는 get
     Node get(int index) {
         Node n = header;
+        int idx = 0;
         Node findNode = null;
         try{
             while(n.next != null) {
-                if(n.next.idx == index) {
+                if(idx == index) {
                     findNode = n.next;
                     break;
                 }
                 n = n.next;
+                idx++;
             }
             System.out.println(findNode + " get succeed");
             return findNode;
@@ -74,14 +76,14 @@ public class LinkedListNode<T> {
     // index를 뽑아내는 findIndex
     int findIndex(T data) {
         Node n = header;
-        int idx = -1; // 찾을 수 없으면 -1을 리턴
+        int idx = 0; // 찾을 수 없으면 -1을 리턴
         try {
             while(n.next != null) {
                 if(n.next.data.equals(data)) {
-                    idx = n.next.idx;
                     break;
                 }
                 n = n.next;
+                idx++;
             }
             return idx;
         } catch (Exception e) {
@@ -93,14 +95,16 @@ public class LinkedListNode<T> {
     int replace(int index, T data) {
         Node n = header;
         int success = 0;
+        int idx = 0;
         try {
             while(n.next != null) {
-                if(n.next.idx == index) {
+                if(idx == index) {
                     n.next.data = data;
                     success = 1;
                     break;
                 }
                 n = n.next;
+                idx++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,20 +115,17 @@ public class LinkedListNode<T> {
     // index로 삭제하는 delete
     int delete(int index) {
         Node n = header;
+        int idx = 0;
         int success;
         try {
             while(n.next != null) {
-                if(n.next.idx == index) {
+                if(idx == index) {
                     System.out.println(n.next + " delete succeed");
                     n.next = n.next.next;
-                    while(n.next != null) {
-                        n = n.next;
-                        n.idx--;
-                    }
-                    this.index--;
 
                     break;
                 }
+                idx++;
                 n = n.next;
             }
             success = 1;
@@ -133,6 +134,7 @@ public class LinkedListNode<T> {
         }
         return 0;
     }
+
     // data로 삭제하는 deleteByData
     int deleteByData(T data) {
         Node n = header;
@@ -142,11 +144,7 @@ public class LinkedListNode<T> {
                 if(n.next.data.equals(data)) {
                     System.out.println(n.next + " delete succeed");
                     n.next = n.next.next;
-                    while(n.next != null) {
-                        n = n.next;
-                        n.idx--;
-                    }
-                    this.index--;
+
                     break;
                 }
                 n = n.next;
@@ -164,11 +162,11 @@ public class LinkedListNode<T> {
         System.out.print("[");
         while(n.next != null) {
             if(n.data != null)
-                System.out.print("[" + n.idx + ", " + n.data + "], ");
+                System.out.print("[" + n.data + "], ");
 
             n = n.next;
         }
-        System.out.println("[" + n.idx + ", " + n.data + "]");
+        System.out.println("[" + n.data + "]");
     }
 
 
