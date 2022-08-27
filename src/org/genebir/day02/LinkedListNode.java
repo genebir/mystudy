@@ -51,13 +51,71 @@ public class LinkedListNode<T> {
         }
         return success;
     }
-    // index로 삭제
+
+    // index로 검색하는 get
+    Node get(int index) {
+        Node n = header;
+        Node findNode = null;
+        try{
+            while(n.next != null) {
+                if(n.next.idx == index) {
+                    findNode = n.next;
+                    break;
+                }
+                n = n.next;
+            }
+            System.out.println(findNode + " get succeed");
+            return findNode;
+        } catch (Exception e) {
+            return findNode;
+        }
+    }
+
+    // index를 뽑아내는 findIndex
+    int findIndex(T data) {
+        Node n = header;
+        int idx = -1; // 찾을 수 없으면 -1을 리턴
+        try {
+            while(n.next != null) {
+                if(n.next.data.equals(data)) {
+                    idx = n.next.idx;
+                    break;
+                }
+                n = n.next;
+            }
+            return idx;
+        } catch (Exception e) {
+            return idx;
+        }
+    }
+
+    // index를 찾아 data를 수정하는 replace
+    int replace(int index, T data) {
+        Node n = header;
+        int success = 0;
+        try {
+            while(n.next != null) {
+                if(n.next.idx == index) {
+                    n.next.data = data;
+                    success = 1;
+                    break;
+                }
+                n = n.next;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
+    // index로 삭제하는 delete
     int delete(int index) {
         Node n = header;
         int success;
         try {
             while(n.next != null) {
                 if(n.next.idx == index) {
+                    System.out.println(n.next + " delete succeed");
                     n.next = n.next.next;
                     while(n.next != null) {
                         n = n.next;
@@ -75,20 +133,20 @@ public class LinkedListNode<T> {
         }
         return 0;
     }
-    // delete오버로딩해서 data로 삭제
-    int delete(T data) {
+    // data로 삭제하는 deleteByData
+    int deleteByData(T data) {
         Node n = header;
         int success;
         try {
             while (n.next != null) {
                 if(n.next.data.equals(data)) {
+                    System.out.println(n.next + " delete succeed");
                     n.next = n.next.next;
                     while(n.next != null) {
                         n = n.next;
                         n.idx--;
                     }
                     this.index--;
-
                     break;
                 }
                 n = n.next;
@@ -100,6 +158,7 @@ public class LinkedListNode<T> {
         return success;
     }
 
+    // 전체 출력하는 retrieve
     void retrieve() {
         Node n = header;
         System.out.print("[");
@@ -113,18 +172,5 @@ public class LinkedListNode<T> {
     }
 
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LinkedListNode<?> that = (LinkedListNode<?>) o;
-        return Objects.equals(header, that.header);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(header);
-    }
 
 }

@@ -15,10 +15,14 @@ public class Main {
         ll.append("test8");
         ll.append("test9");
 
-        int delcheck = ll.delete("test1");
+        System.out.println(ll.get(1));
+        int delcheck = ll.deleteByData("test1");
         ll.retrieve();
+        ll.replace(1, "test11");
         ll.append("test4");
         ll.append("test5");
+        System.out.println(ll.findIndex("test1"));
+        System.out.println(ll.findIndex("test4"));
 //        System.out.println(delcheck);
         ll.retrieve();
     }
