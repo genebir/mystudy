@@ -19,6 +19,7 @@ public class Main {
         System.out.println(ll.findIndex(new User(2, "송현아", "010-2568-4462")));
         System.out.println(ll.get(1));
 
+        System.out.println(ll.size());
         ll.retrieve();
     }
 }

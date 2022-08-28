@@ -52,6 +52,19 @@ public class LinkedListNode<T> {
         return success;
     }
 
+    // length를 리턴하는 size
+    int size() {
+        Node n = header;
+        int size = 0;
+
+        while(n.next != null) {
+            size++;
+            n = n.next;
+        }
+
+        return size;
+    }
+
     // index로 검색하는 get
     Node get(int index) {
         Node n = header;
