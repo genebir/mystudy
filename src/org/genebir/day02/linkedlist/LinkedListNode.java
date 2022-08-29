@@ -179,7 +179,7 @@ public class LinkedListNode<T> {
 
             n = n.next;
         }
-        System.out.println("[" + n.data + "]");
+        System.out.println("[" + n.data + "]" + "]");
     }
 
 
